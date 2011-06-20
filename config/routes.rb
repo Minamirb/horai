@@ -1,4 +1,6 @@
 Horai::Application.routes.draw do
+  resources :posts
+
   root :to => 'root#index'
 
   # The priority is based upon order of creation:
