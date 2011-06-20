@@ -14,7 +14,14 @@
   <div id="menu">
     <%= image_tag "sign-in-with-twitter-l.png" %>
   </div>
+  <div id="upload_form">
+    <%= form_for(@post) do |f| %>
+      <%= f.file_field :photo %><br>
+      <%= f.text_field :comment %><%= f.submit %>
+    <% end %>
+  </div>
 </header>
+
 <div id="content">
 <%= yield %>
 </div>

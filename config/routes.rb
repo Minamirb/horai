@@ -1,5 +1,5 @@
 Horai::Application.routes.draw do
-  resources :posts
+  resources :posts, :only => [:show, :create, :destroy]
 
   root :to => 'root#index'
 

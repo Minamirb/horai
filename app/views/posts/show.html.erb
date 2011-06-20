@@ -1,20 +1,5 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <b>Comment:</b>
+  <%= image_tag @post.photo.url(:thumb) %>
   <%= @post.comment %>
 </p>
 
-<p>
-  <b>Photo:</b>
-  <%= @post.photo %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%= @post.user %>
-</p>
-
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
