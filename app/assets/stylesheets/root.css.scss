@@ -1,7 +1,53 @@
-// Place all the styles related to the root controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/* |320px|620px| */
+@mixin border-radius($top, $bottom){
+  -webkit-border-radius: $top $top $bottom $bottom;
+  -moz-border-radius: $top $top $bottom $bottom;
+  border-radius: $top $top $bottom $bottom;
+}
 
-body.root {
-  // Place scoped styles here
+body{
+  background: #FF9999;
+}
+#wrapper{
+  background: #FFFFFF;
+  width: 950px;
+  margin: 0 auto 0;
+  padding: 5px;
+  @include border-radius(5px, 5px);
+  line-height: 1.3em;
+}
+
+header{
+  > *{
+    float: left;
+  }
+  #menu{
+    width: 630px;
+    text-align: right;
+    margin: auto;
+  }
+}
+
+#content{
+  clear: both;
+  > *{
+    float: left;
+  }
+  #list{
+    width: 320px;
+  }
+  #map{
+    margin-left: 10px;
+    width: 594px;
+    height: 420px;
+    border: 1px solid #000;
+  }
+  li{
+    list-style-type: none;
+  }
+}
+
+footer{
+  clear: both;
+  text-align: center;
 }
