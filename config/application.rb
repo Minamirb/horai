@@ -5,7 +5,7 @@ require File.expand_path('../boot', __FILE__)
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
- require "rails/test_unit/railtie"
+require "rspec-rails"
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
@@ -43,5 +43,8 @@ module Horai
 
     # Enable the asset pipeline
     config.assets.enabled = true
+    config.generators do |g|
+      g.fixture_replacement :factory_girl, :dir => "spec/factories"
+    end
   end
 end
