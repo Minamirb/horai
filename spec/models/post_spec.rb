@@ -15,6 +15,11 @@ describe Post do
       @post.location.should eq [34.655176194444444, 135.5002445]
     end
 
+    it "exif に位置情報が無くてもエラーにはならない" do
+      @post.photo = File.new(Rails.root.join('spec', 'files', 'without_geo.jpg'))
+      expect { @post.save }.to_not raise_error
+    end
+
     it "exif が無くてもエラーにはならない" do
       @post.photo = File.new(Rails.root.join('spec', 'files', 'without_exif.jpg'))
       expect { @post.save }.to_not raise_error
