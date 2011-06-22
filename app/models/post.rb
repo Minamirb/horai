@@ -14,10 +14,9 @@ class Post
   private
   def extract_geo_location
     tags = EXIFR::JPEG.new(photo.path)
-    latlng = [:latitude, :longitude].map{|tag|
+    self.location = [:latitude, :longitude].map{|tag|
       (h, m, s) = tags.exif[:"gps_#{tag}"]
       (h + m / 60 + s / 3600).to_f
-    }
-    self.location = latlng
+    } if tags.exif
   end
 end
