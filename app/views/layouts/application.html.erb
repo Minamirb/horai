@@ -4,6 +4,7 @@
   <title>がぞ☆ちず</title>
   <meta charset="UTF-8">
   <%= stylesheet_link_tag    "application" %>
+  <%= javascript_tag "path = {root: '#{root_path.gsub(/^\//, '')}'}" %>
   <%= javascript_include_tag "application" %>
   <% schema = (request.ssl?) ? 'https' : 'http' %>
   <%= javascript_include_tag "#{schema}://maps.google.com/maps/api/js?sensor=true" %>
