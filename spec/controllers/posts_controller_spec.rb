@@ -3,7 +3,7 @@ require 'spec_helper'
 describe PostsController do
 
   def valid_attributes
-    {:comment => "comment"}
+    {:comment => "comment", :photo => File.new(Rails.root.join("spec", "files", "with_geo.jpg")) }
   end
 
   describe "GET show" do
