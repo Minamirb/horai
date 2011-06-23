@@ -10,7 +10,7 @@ jQuery ($)->
 
   $(".post_comment").click ->
     id = @id.split("_").pop()
-    $.get("#{path.root}/posts/#{id}.json")
+    $.get(@href + ".json")
     .success (response) ->
       [lat, lng] = response.location
       latlng = new google.maps.LatLng(lat, lng)
@@ -21,3 +21,4 @@ jQuery ($)->
       frame.append($("<img>").attr(src: "#{path.root}/uploads/post/photo/#{response._id}/thumb_#{response.photo_filename}"))
       infowindow.setContent(frame.html())
       infowindow.open(map)
+    return false
