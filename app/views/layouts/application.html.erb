@@ -4,6 +4,9 @@
   <title>がぞ☆ちず</title>
   <meta charset="UTF-8">
   <%= stylesheet_link_tag    "application" %>
+  <%= javascript_tag "
+      if(typeof(WebSocket) === 'undefined')
+        WEB_SOCKET_SWF_LOCATION = 'WebSocketMain.swf'; " %>
   <%= javascript_tag "path = {root: '#{root_path.gsub(/^\//, '')}'}" %>
   <%= javascript_include_tag "application" %>
   <% schema = (request.ssl?) ? 'https' : 'http' %>
@@ -20,9 +23,11 @@
   <div id="upload_form">
     <%= form_for(@post) do |f| %>
       <%= f.file_field :photo %><br>
-      <%= f.text_field :comment %><%= f.submit %>
+      <%= f.text_field :comment %><%= f.submit 'upload', :id => 'upload' %>
     <% end %>
   </div>
+  <div id="debug"></div>
+  <div id="msg"></div>
 </header>
 
 <div id="content">

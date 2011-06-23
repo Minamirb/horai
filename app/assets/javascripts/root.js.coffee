@@ -22,3 +22,16 @@ jQuery ($)->
       infowindow.setContent(frame.html())
       infowindow.open(map)
     return false
+
+
+  $('#upload').click ->
+    ws = new WebSocket("ws://localhost:8080/")
+    alert ws
+    ws.onmessage = (evt) ->
+       $("#msg").append("<p>"+evt.data+"</p>")
+    ws.onclose = ->
+      console.log("close")
+    ws.onopen = ->
+      $("#debug").append("</p>connected...<p>")
+      ws.send("hello server")
+    return false

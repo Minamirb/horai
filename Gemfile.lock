@@ -44,7 +44,11 @@ GEM
       execjs
     coffee-script-source (1.1.1)
     diff-lcs (1.1.2)
+    em-websocket (0.3.0)
+      addressable (>= 2.1.1)
+      eventmachine (>= 0.12.9)
     erubis (2.7.0)
+    eventmachine (0.12.10)
     execjs (1.2.0)
       multi_json (~> 1.0)
     exifr (1.0.5)
@@ -207,6 +211,7 @@ DEPENDENCIES
   bson_ext (~> 1.3)
   carrierwave
   coffee-script
+  em-websocket
   exifr
   factory_girl
   jquery-rails

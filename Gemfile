@@ -15,6 +15,7 @@ gem 'mini_magick'
 gem 'exifr'
 gem 'kaminari'
 gem 'rails3-generators'
+gem 'em-websocket'
 #gem 'ruby-debug19', :require => 'ruby-debug'
 gem 'sprockets', '= 2.0.0.beta.10'
 
