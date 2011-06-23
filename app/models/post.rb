@@ -13,6 +13,7 @@ class Post
 
   private
   def extract_geo_location
+    p photo
     tags = EXIFR::JPEG.new(photo.path)
     if exif = tags.exif
       self.location = [:latitude, :longitude].map{|tag|
