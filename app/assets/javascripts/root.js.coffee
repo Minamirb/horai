@@ -1,6 +1,9 @@
 jQuery ($)->
   geolocation = navigator.geolocation
   map = false
+  progress = new html5jp.progress("progress")
+  progress.draw()
+
   if location.pathname == '/'
     geolocation.getCurrentPosition (position) ->
       latlng = position.coords
@@ -42,10 +45,18 @@ jQuery ($)->
         when 'OK Ready'
           ws.send("filename: #{file.name}, comment: #{$('#post_comment').val()}, size: #{max_length}\n")
         when 'Finish'
-          ws.close
-        when 'Comment'
-          ws.send("")
+          ws.close()
+          ws = null
+          progress.set_val(100)
+          $("#notice").text('アップロードが完了しました')
+          $("#new_post").get(0).reset()
+          $("#new_post").show()
+          $("#progress").hide()
+
+          progress.reset()
         when 'Next'
+          val = Math.floor(start / max_length * 100)
+          progress.set_val(val)
           stop = start + chunk - 1
           if stop >= max_length
             stop = max_length
@@ -61,12 +72,12 @@ jQuery ($)->
 
           setTimeout ->
             reader.readAsBinaryString(blob)
-          , 30
-
-    # ws.onclose = ->
-    #   console.log("close")
-
+          , 300
 
   $('#upload').click ->
+    $("#notice").text('')
+    $("#new_post").hide()
     $("#post_photo").trigger 'upload'
+    $("#progress").show()
+
     return false

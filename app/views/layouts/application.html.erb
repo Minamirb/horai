@@ -21,6 +21,7 @@
   <div id="menu">
     <%= image_tag "sign-in-with-twitter-l.png" %>
   </div>
+
   <div id="upload_form">
     <%= form_for(@post) do |f| %>
       <%= f.file_field :photo %><br>
@@ -28,6 +29,7 @@
     <% end %>
   </div>
   <div id="progress"></div>
+  <div id="notice"></div>
 </header>
 
 <div id="content">

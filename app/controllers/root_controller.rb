@@ -4,7 +4,7 @@ class RootController < ApplicationController
     @posts = Post.order_by(:created_at.desc).page(params[:page]).per(20)
   end
 
-  Process.kill(:INT, Horai.ws_pid) if Horai.ws_pid
+  Process.kill(:KILL, Horai.ws_pid) if Horai.ws_pid
   Horai.ws_pid = Process.fork do
     EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 8080) do |ws|
       file = nil
