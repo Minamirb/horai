@@ -1,6 +1,15 @@
 Horai::Application.routes.draw do
   resources :posts, :only => [:show, :create, :destroy]
 
+  #
+  # ユーザー認証
+  #
+  match '/auth/:provider/callback' => 'sessions#create'
+  match '/auth/failure' => 'sessions#failure'
+  match '/signout' => 'sessions#destroy', :as => :signout
+  match '/signin' => 'sessions#new', :as => :signin
+
+  
   root :to => 'root#index'
 
   # The priority is based upon order of creation:

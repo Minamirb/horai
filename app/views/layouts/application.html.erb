@@ -19,7 +19,17 @@
 <header>
   <%= image_tag "logo-S.png" %>
   <div id="menu">
-    <%= image_tag "sign-in-with-twitter-l.png" %>
+    <%#= image_tag("sign-in-with-twitter-l.png") %>
+<%
+# TODO
+%>
+<% if user_signed_in? %>
+  Logged in as <%= current_user.name %>
+  <%= link_to('Logout', signout_path) %>        
+<% else %>
+  <%= link_to('Login', signin_path)  %>  
+<% end %>
+
   </div>
 
   <div id="upload_form">
