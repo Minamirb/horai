@@ -13,9 +13,13 @@ class RootController < ApplicationController
         when /^filename:/
           message.chomp!
           file = Hash[message.split(', ').map{|col| (k, v) = col.split(': '); [k.to_sym, v] }]
-          file[:size] = file[:size].to_i
-          file[:body] = "".encode("BINARY")
-          response = 'Next'
+          if file[:comment].blank?
+            response = "Error: {comment: 'required'}"
+          else
+            file[:size] = file[:size].to_i
+            file[:body] = "".encode("BINARY")
+            response = 'Next'
+          end
         else
           message = message.unpack('U*').pack('c*')
           file[:body] << message
@@ -28,8 +32,7 @@ class RootController < ApplicationController
             file[:tempfile] = tmpfile
             file[:type] = "image/jpg"
             post.photo =  ActionDispatch::Http::UploadedFile.new(file)
-            p post.save
-            p post.errors
+            post.save
             response = 'Finish'
           else
             response = 'Next'

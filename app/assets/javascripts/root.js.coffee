@@ -27,19 +27,20 @@ jQuery ($)->
     return false
 
   $("#post_photo").bind 'upload', (event) ->
-    ws = new WebSocket("ws://localhost:8080/")
     file = event.target.files[0]
     try
       max_length = file.size
     catch e
       alert 'ファイルが存在しません。もう一度ファイルを選択してください'
       return
-
     if max_length == 0
       alert 'ファイルが存在しません。もう一度ファイルを選択してください'
       return
     chunk = 102400
     start = 0
+    ws = new WebSocket("ws://localhost:8080/")
+    $("#new_post").hide()
+    $("#progress").show()
     ws.onmessage = (evt) ->
       switch evt.data
         when 'OK Ready'
@@ -75,9 +76,16 @@ jQuery ($)->
           , 300
 
   $('#upload').click ->
-    $("#notice").text('')
-    $("#new_post").hide()
-    $("#post_photo").trigger 'upload'
-    $("#progress").show()
+    errors = []
+    if $("#post_comment").val().length < 1
+      errors.push("コメントを入力してください")
+    if $("#post_photo").val().length < 1
+      errors.push("ファイルを選択してください")
+    if errors.length > 0
+      $("#new_post_error").text(errors.join(" "))
+      return false
 
+    $("#new_post_error").text('')
+    $("#notice").text('')
+    $("#post_photo").trigger 'upload'
     return false
