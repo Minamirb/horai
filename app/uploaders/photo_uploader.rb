@@ -30,6 +30,8 @@ class PhotoUploader < CarrierWave::Uploader::Base
           else
             file[:size] = file[:size].to_i
             file[:body] = "".encode("BINARY")
+            session = Horai::Application.config.session_store.new(Horai::Application).coder.decode(file[:session_string])
+            file[:user_id] = session["user_id"]
             response = 'Next'
           end
         else
@@ -44,6 +46,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
             file[:tempfile] = tmpfile
             file[:type] = "image/jpg"
             post.photo =  ActionDispatch::Http::UploadedFile.new(file)
+            post.user_id = file[:user_id]
             post.save
             response = 'Finish'
           else

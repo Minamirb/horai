@@ -36,6 +36,7 @@
     <%= form_for(@post) do |f| %>
       ファイル:&nbsp;<%= f.file_field :photo, :size => 40 %><br>
       コメント:&nbsp;<%= f.text_field :comment, :size => 40 %><br>
+      <%= hidden_field_tag :session_string, request.cookies["_horai_session"] %>
       <div style="text-align: right;">
       <div id="new_post_error" class="alert"></div>
       <div id="notice"></div>

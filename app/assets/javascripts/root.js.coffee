@@ -22,7 +22,7 @@ jQuery ($)->
     ws.onmessage = (evt) ->
       switch evt.data
         when 'OK Ready'
-          ws.send("filename: #{file.name}, comment: #{$('#post_comment').val()}, size: #{max_length}\n")
+          ws.send("filename: #{file.name}, comment: #{$('#post_comment').val()}, size: #{max_length}, session_string: #{$('#session_string').val()}\n")
         when 'Finish'
           ws.close()
           ws = null

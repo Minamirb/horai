@@ -10,10 +10,8 @@ class Post
   mount_uploader :photo, PhotoUploader
 
   before_save :extract_geo_location
-
   private
   def extract_geo_location
-    p photo
     tags = EXIFR::JPEG.new(photo.path)
     if exif = tags.exif
       self.location = [:latitude, :longitude].map{|tag|
