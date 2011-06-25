@@ -19,7 +19,6 @@
 <header>
   <%= image_tag "logo-S.png" %>
   <div id="menu">
-    <%#= image_tag("sign-in-with-twitter-l.png") %>
 <%
 # TODO
 %>
@@ -33,6 +32,7 @@
   </div>
 
   <div id="upload_form">
+<% if user_signed_in? %>
     <%= form_for(@post) do |f| %>
       ファイル:&nbsp;<%= f.file_field :photo, :size => 40 %><br>
       コメント:&nbsp;<%= f.text_field :comment, :size => 40 %><br>
@@ -42,6 +42,7 @@
       <%= f.submit '送信', :id => 'upload' %>
       </div>
     <% end %>
+<% end %>
   </div>
   <div id="progress"></div>
 

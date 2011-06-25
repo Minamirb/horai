@@ -7,10 +7,12 @@ jQuery ($)->
     try
       max_length = file.size
     catch e
-      alert 'ファイルが存在しません。もう一度ファイルを選択してください'
+      #alert 'ファイルが存在しません。もう一度ファイルを選択してください'
+      alert ''
       return
     if max_length == 0
-      alert 'ファイルが存在しません。もう一度ファイルを選択してください'
+      #alert 'ファイルが存在しません。もう一度ファイルを選択してください'
+      alert ''
       return
     chunk = 102400
     start = 0
@@ -25,7 +27,8 @@ jQuery ($)->
           ws.close()
           ws = null
           progress.set_val(100)
-          $("#notice").text('アップロードが完了しました')
+          #$("#notice").text('アップロードが完了しました')
+          $("#notice").text('')
           $("#new_post").get(0).reset()
           $("#new_post").show()
           $("#progress").hide()
@@ -54,9 +57,11 @@ jQuery ($)->
   $('#upload').click ->
     errors = []
     if $("#post_comment").val().length < 1
-      errors.push("コメントを入力してください")
+      #errors.push("コメントを入力してください")
+      errors.push("")
     if $("#post_photo").val().length < 1
-      errors.push("ファイルを選択してください")
+      #errors.push("ファイルを選択してください")
+      errors.push("")
     if errors.length > 0
       $("#new_post_error").text(errors.join(" "))
       return false
