@@ -5,3 +5,5 @@ tmp/
 .sass-cache/
 *.swp
 public/uploads/post/photo/
+config/initializers/omniauth.rb
+
