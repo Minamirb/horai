@@ -1,9 +1,3 @@
-<div id="list">
-  <ul>
-    <% @posts.each do |post| -%>
-      <li><%= link_to post.comment, post, :id => "post_comment_#{post.id}", :class => "post_comment" %></li>
-    <% end -%>
-  </ul>
-</div>
+<%= render "posts/list", :posts => @posts %>
 <div id="map">
 </div>

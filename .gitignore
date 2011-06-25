@@ -6,4 +6,5 @@ tmp/
 *.swp
 public/uploads/post/photo/
 config/initializers/omniauth.rb
+vendor/web-socket-js
 

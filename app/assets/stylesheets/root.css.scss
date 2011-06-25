@@ -35,6 +35,22 @@ header{
   }
   #list{
     width: 320px;
+    li{
+      padding: 1px;
+      a{
+        text-decoration: none;
+      }
+      a:focus{
+        border: 0;
+      }
+      a:visited{
+        color: #000000;
+      }
+      a:hover{
+        background: none;
+        color: #000000;
+      }
+    }
   }
   #map{
     margin-left: 10px;
