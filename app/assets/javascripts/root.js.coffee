@@ -28,6 +28,7 @@ jQuery ($)->
           ws = null
           progress.set_val(100)
           #$("#notice").text('アップロードが完了しました')
+          $("#list").load("/")
           $("#notice").text('')
           $("#new_post").get(0).reset()
           $("#new_post").show()

@@ -21,6 +21,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
     EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 8080) do |ws|
       file = nil
       ws.onmessage{|message|
+        load Rails.root.join("app", "models", "post.rb")
         case message
         when /^filename:/
           message.chomp!
