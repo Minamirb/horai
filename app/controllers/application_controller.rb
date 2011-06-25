@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   before_filter :default_output
   respond_to :html, :json
 
-
   helper_method :current_user
   helper_method :user_signed_in?
   helper_method :correct_user?
