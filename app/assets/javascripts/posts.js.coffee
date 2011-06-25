@@ -40,7 +40,6 @@ jQuery ($) ->
     node.css('backgroundColor', '#FFFFFF')
     node.trigger('selected:mouseout')
 
-
   comments.live 'click', ->
     select(@)
     id = @id.split("-").pop()
@@ -57,3 +56,6 @@ jQuery ($) ->
       infowindow.setContent(frame.html())
       infowindow.open(map)
     return false
+
+  $(".pagination a").live "ajax:success", (e, response)->
+    $("#list").html(response)

@@ -1,8 +1,6 @@
-<div id="list">
-  <ul>
-    <% posts.each do |post| -%>
-      <li id="post-comment-<%= post.id %>" class="post-comment"><%= link_to post.comment, post, :class => 'post-comment-link' %></li>
-    <% end -%>
-  </ul>
-</div>
-
+<ul>
+  <% posts.each do |post| -%>
+    <li id="post-comment-<%= post.id %>" class="post-comment"><%= link_to post.comment, post, :class => 'post-comment-link' %></li>
+  <% end -%>
+</ul>
+<%= paginate posts, :remote => true %>

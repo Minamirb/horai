@@ -56,5 +56,5 @@ class PhotoUploader < CarrierWave::Uploader::Base
       ws.onopen    { ws.send "OK Ready" }
       ws.onclose   { puts "WebSocket closed" }
     end
-  end
+  end if Rails.env != "test"
 end
