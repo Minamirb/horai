@@ -1,9 +1,10 @@
 class User
   include Mongoid::Document
-  attr_accessible :provider, :uid, :name
+  attr_accessible :provider, :uid, :name, :nickname
   field :provider, :type => String
   field :uid, :type => String
   field :name, :type => String
+  field :nickname, :type => String
 
   def self.create_with_omniauth(auth) 
     begin
@@ -14,6 +15,7 @@ class User
         if auth['user_info']
           # Twitter, Google, Yahoo, GitHub
           user.name = auth['user_info']['name'] if auth['user_info']['name']
+          user.nickname = auth['user_info']['nickname'] if auth['user_info']['nickname']
           # Google, Yahoo, GitHub
           user.email = auth['user_info']['email'] if auth['user_info']['email']
         end

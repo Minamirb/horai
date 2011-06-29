@@ -1,5 +1,9 @@
+# -*- coding: utf-8 -*-
 Horai::Application.routes.draw do
-  resources :posts, :only => [:show, :create, :destroy]
+  resources :posts, :only => [:create, :destroy]
+  resources :users, :only => [] do
+    resources :posts, :only => [:show, :index]
+  end
 
   #
   # ユーザー認証
@@ -9,7 +13,6 @@ Horai::Application.routes.draw do
   match '/signout' => 'sessions#destroy', :as => :signout
   match '/signin' => 'sessions#new', :as => :signin
 
-  
   root :to => 'root#index'
 
   # The priority is based upon order of creation:

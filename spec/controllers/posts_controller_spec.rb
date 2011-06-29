@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe PostsController do
-
+  before do
+    @user = Factory(:user)
+    sign_in(@user)
+  end
   def valid_attributes
     {:comment => "comment", :photo => File.new(Rails.root.join("spec", "files", "with_geo.jpg")) }
   end
@@ -9,7 +12,7 @@ describe PostsController do
   describe "GET show" do
     it "assigns the requested post as @post" do
       post = Post.create! valid_attributes
-      get :show, :id => post.id.to_s
+      get :show, :user_id => @user.nickname, :id => post.id.to_s
       assigns(:post).should eq(post)
     end
   end

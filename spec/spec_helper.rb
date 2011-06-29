@@ -18,6 +18,7 @@ RSpec.configure do |config|
   # config.mock_with :rr
   config.mock_with :rspec
   config.include Mongoid::Matchers
+  config.include Horai::SpecSupport::Controller, :type => :controller
 end
 
 Mongoid.master.collections.select{ |c| c.name !~ /system\./ }.each { |c| c.drop }

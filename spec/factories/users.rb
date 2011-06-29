@@ -1,7 +1,7 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
-
+# -*- coding: utf-8 -*-
 Factory.define :user do |f|
-  f.provider "MyString"
-  f.uid "MyString"
-  f.name "MyString"
+  f.provider "twitter"
+  f.uid Digest::MD5.hexdigest(Time.now.to_f.to_s)
+  f.name "よしだあつし"
+  f.nickname 'yalab'
 end

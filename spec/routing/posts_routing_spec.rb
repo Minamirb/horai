@@ -3,7 +3,7 @@ require "spec_helper"
 describe PostsController do
   describe "routing" do
     it "routes to #show" do
-      get("/posts/1").should route_to("posts#show", :id => "1")
+      get("/users/yalab/posts/1").should route_to("posts#show", :id => "1", :user_id => "yalab")
     end
 
     it "routes to #create" do
