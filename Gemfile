@@ -18,6 +18,7 @@ gem 'rails3-generators'
 gem 'em-websocket'
 #gem 'ruby-debug19', :require => 'ruby-debug'
 gem 'sprockets', '= 2.0.0.beta.10'
+gem 'nyoibo', :git => 'https://github.com/yalab/nyoibo.git'
 
 group :test do
   gem "rspec-rails"

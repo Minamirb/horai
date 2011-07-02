@@ -4,10 +4,6 @@
   <title>がぞ☆ちず</title>
   <meta charset="UTF-8">
   <%= stylesheet_link_tag    "application" %>
-  <%= javascript_tag "
-      if(typeof(WebSocket) === 'undefined')
-        WEB_SOCKET_DEBUG = true;
-        WEB_SOCKET_SWF_LOCATION = '/WebSocketMain.swf'; " %>
   <%= javascript_tag "path = {root: '#{root_path.gsub(/^\//, '')}'}" %>
   <%= javascript_include_tag "application" %>
   <% schema = (request.ssl?) ? 'https' : 'http' %>
@@ -31,21 +27,22 @@
 
   </div>
 
-  <div id="upload_form">
+
 <% if user_signed_in? %>
-    <%= form_for(@post) do |f| %>
+  <div id="upload_form">  
+    <%= ws_form_for(@post) do |f| %>
       ファイル:&nbsp;<%= f.file_field :photo, :size => 40 %><br>
       コメント:&nbsp;<%= f.text_field :comment, :size => 40 %><br>
       <%= hidden_field_tag :session_string, request.cookies["_horai_session"] %>
       <div style="text-align: right;">
-      <div id="new_post_error" class="alert"></div>
+      <div id="errors" class="alert"></div>
       <div id="notice"></div>
       <%= f.submit '送信', :id => 'upload' %>
       </div>
     <% end %>
-<% end %>
   </div>
-  <div id="progress"></div>
+<% end %>
+
 
 </header>
 

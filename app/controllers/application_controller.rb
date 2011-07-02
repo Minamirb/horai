@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include NyoiboHelper
   protect_from_forgery
   before_filter :default_output
   respond_to :html, :json

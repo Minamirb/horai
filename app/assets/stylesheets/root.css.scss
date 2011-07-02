@@ -29,6 +29,7 @@ header{
 }
 
 #content{
+  padding-bottom: 20px;
   clear: both;
   > *{
     float: left;
@@ -71,9 +72,10 @@ footer{
   text-align: center;
 }
 
-#progress{
+#ws-progress{
   display: none;
 }
+
 .alert{
   color: #FF0000;
 }
