@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/yalab/nyoibo.git
-  revision: 63c70412779d37a65c315885b68cfc013dae522c
+  revision: b78f25f324a21abeb4f97352e916311cc6a7320b
   specs:
     nyoibo (0.0.2)
       em-websocket (~> 0.3.0)

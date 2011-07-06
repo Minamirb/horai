@@ -6,10 +6,8 @@ jQuery ($)->
     errors = []
     if $("#post_comment").val().length < 1
       errors.push("コメントを入力してください")
-      # errors.push("")
     if $("#post_photo").val().length < 1
       errors.push("ファイルを選択してください")
-      # errors.push("")
     if errors.length > 0
       $("#errors").text(errors.join(" "))
       return false

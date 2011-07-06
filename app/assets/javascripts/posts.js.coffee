@@ -33,6 +33,7 @@ jQuery ($) ->
   comments.live 'mouseover', ->
     node = $(@)
     node.css('backgroundColor', '#D5E2FF')
+    node.css('cursor', 'pointer')
     node.trigger('selected:mouseover')
 
   comments.live 'mouseout', ->
@@ -59,3 +60,6 @@ jQuery ($) ->
 
   $(".pagination a").live "ajax:success", (e, response)->
     $("#list").html(response)
+
+  $(".user_name").click ->
+    comments.die('click')

@@ -5,13 +5,13 @@ class PostsController < ApplicationController
   end
 
   def create
-    # @post = Post.new(params[:post])
-    # success = @post.save
-    # respond_with(@post) do |f|
-    #   unless success
-    #     f.html{ render "root/index" }
-    #   end
-    # end
+    @post = Post.new(params[:post])
+    success = @post.save
+    respond_with(@post) do |f|
+      unless success
+        f.html{ render "root/index" }
+      end
+    end
   end
 
   def update

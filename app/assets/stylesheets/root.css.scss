@@ -29,7 +29,7 @@ header{
 }
 
 #content{
-  padding-bottom: 20px;
+  padding-top: 20px;
   clear: both;
   > *{
     float: left;
@@ -68,8 +68,9 @@ header{
 }
 
 footer{
+  padding: 20px 0 5px;
   clear: both;
-  text-align: center;
+  text-align: right;
 }
 
 #ws-progress{

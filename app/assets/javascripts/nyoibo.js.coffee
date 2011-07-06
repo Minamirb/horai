@@ -64,6 +64,7 @@ jQuery ($)->
           ws.send("JSON: " + JSON.stringify(params))
         when 'OK Bye'
           ws.close()
+          ws = null
         when 'EMPTY'
           ws.send("QUIT")
         when 'NEXT'

@@ -2,7 +2,7 @@
   <% posts.each do |post| -%>
     <li id="post-comment-<%= post.id %>" class="post-comment">
         <div style="float: left;"><%= link_to post.comment, [post.user, post], :class => 'post-comment-link' %></div>
-        <div style="float: right;">(Posted by <%= link_to post.user.name %>)</div>
+        <div style="float: right;">(Posted by <%= link_to post.user.name, user_posts_path(post.user), :class => 'user_name' %>)</div>
         <div style='clear: both;'></div>
     </li>
   <% end -%>
