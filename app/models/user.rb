@@ -5,13 +5,14 @@ class User
   field :uid, :type => String
   field :name, :type => String
   field :nickname, :type => String
+  has_many :posts
 
   def self.create_with_omniauth(auth) 
     begin
       create! do |user|
         user.provider = auth['provider']
         user.uid = auth['uid']
-        
+
         if auth['user_info']
           # Twitter, Google, Yahoo, GitHub
           user.name = auth['user_info']['name'] if auth['user_info']['name']

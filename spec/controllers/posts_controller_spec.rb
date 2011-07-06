@@ -3,17 +3,27 @@ require 'spec_helper'
 describe PostsController do
   before do
     @user = Factory(:user)
+    sign_in @user
+    @post = @user.posts.create!(valid_attributes)
   end
 
   def valid_attributes
-    {:comment => "comment", :photo => File.new(Rails.root.join("spec", "files", "with_geo.jpg")) }
+    {:comment => "comment", :photo => File.new(Rails.root.join("spec", "files", "with_geo.jpg"))}
   end
 
   describe "GET show" do
     it "assigns the requested post as @post" do
-      post = Post.create! valid_attributes
-      get :show, :user_id => @user.nickname, :id => post.id.to_s
-      assigns(:post).should eq(post)
+      get :show, :user_id => @user.nickname, :id => @post.id.to_s
+      assigns(:post).should eq(@post)
+    end
+  end
+
+  describe "GET index" do
+    it "assigns the requestd users posts at @posts" do
+      get :index, :user_id => @user.nickname
+      posts = assigns(:posts).map(&:user_id).uniq
+      posts.length.should == 1
+      User.find(posts.first).nickname.should == @user.nickname
     end
   end
 
@@ -21,6 +31,7 @@ describe PostsController do
     before do
       sign_in(@user)
     end
+
     describe "POST create" do
       describe "with valid params" do
         it "creates a new Post" do
@@ -60,15 +71,13 @@ describe PostsController do
 
     describe "DELETE destroy" do
       it "destroys the requested post" do
-        post = Post.create! valid_attributes
         expect {
-          delete :destroy, :id => post.id.to_s
+          delete :destroy, :id => @post.id.to_s
         }.to change(Post, :count).by(-1)
       end
 
       it "redirects to the posts list" do
-        post = Post.create! valid_attributes
-        delete :destroy, :id => post.id.to_s
+        delete :destroy, :id => @post.id.to_s
         response.should redirect_to(root_url)
       end
     end
