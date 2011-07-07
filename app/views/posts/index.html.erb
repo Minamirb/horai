@@ -1,1 +1,9 @@
-<%= render "posts/list", :posts => @posts %>
+<% @posts.each do |post| %>
+  <article class="photo">
+    <%= image_tag post.photo.url(:thumb) %>
+    <%= post.comment %>
+    <% if current_user && current_user.id == post.user_id %>
+      <%= link_to t('Destroy'), post, :method => :delete, :confirm => "削除してもよろしいですか？" %>
+    <% end %>
+  </atricle>
+<% end %>

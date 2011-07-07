@@ -21,7 +21,7 @@ describe RootController do
         response.should be_success
       end
       it "render posts/index" do
-        response.should render_template("posts/index")
+        response.should render_template("root/_comments")
       end
     end
   end

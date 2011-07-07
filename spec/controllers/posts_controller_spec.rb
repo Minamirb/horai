@@ -78,7 +78,7 @@ describe PostsController do
 
       it "redirects to the posts list" do
         delete :destroy, :id => @post.id.to_s
-        response.should redirect_to(root_url)
+        response.should redirect_to(user_posts_path(@user.nickname))
       end
     end
   end

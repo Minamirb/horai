@@ -1,5 +1,9 @@
 <div id="list">
-  <%= render "posts/list", :posts => @posts %>
+<ul>
+  <%= render "root/comments" %>
+</ul>
+<%= paginate @posts, :remote => true %>
+
 </div>
 <div id="map">
 </div>

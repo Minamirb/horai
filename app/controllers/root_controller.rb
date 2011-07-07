@@ -18,7 +18,7 @@ class RootController < ApplicationController
     respond_with(@posts) do |f|
       f.html{
         if request.xhr?
-          render "posts/index", :layout => false
+          render "root/_comments", :layout => false
         else
           render
         end

@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show]
 
   def index
-    @posts = context_user.posts
+    @posts = context_user.posts.page(params[:page]).per(20)
   end
 
   def show
@@ -31,7 +31,7 @@ class PostsController < ApplicationController
     @post.destroy
 
     respond_to do |format|
-      format.html { redirect_to root_url }
+      format.html { redirect_to user_posts_path(current_user.nickname) }
     end
   end
 
