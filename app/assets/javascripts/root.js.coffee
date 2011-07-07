@@ -23,3 +23,7 @@ jQuery ($)->
     form.show()
     progress_bar.hide()
 
+  form.bind 'ws:upload_abort', (event) ->
+    $("#errors").text("ファイルを送信できません");
+    progress_bar.hide()
+    form.show()

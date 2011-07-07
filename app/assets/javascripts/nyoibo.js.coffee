@@ -39,10 +39,10 @@ jQuery ($)->
     try
       max_length = file.size
     catch e
-      alert nyoibo.file_not_found
+      alert nyoibo.file_not_found if nyoibo
       return
     if max_length == 0
-      alert nyoibo.file_not_found
+      alert nyoibo.file_not_found if nyoibo
       return
     chunk = 102400
     start = 0
@@ -50,8 +50,6 @@ jQuery ($)->
 
     fire(form, 'ws:before_upload')
     ws.onclose = ->
-      progress.set_val(100)
-      fire(form, 'ws:after_upload')
       progress.reset()
       ws = null
 
@@ -63,9 +61,13 @@ jQuery ($)->
             params[k] = v
           ws.send("JSON: " + JSON.stringify(params))
         when 'OK Bye'
-          ws.close()
-          ws = null
+          progress.set_val(100)
+          fire(form, 'ws:after_upload')
+        when 'ABORT'
+          fire(form, 'ws:upload_abort')
         when 'EMPTY'
+          progress.set_val(100)
+          fire(form, 'ws:after_upload')
           ws.send("QUIT")
         when 'NEXT'
           val = Math.floor(start / max_length * 100)
