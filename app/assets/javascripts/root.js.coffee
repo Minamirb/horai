@@ -19,7 +19,7 @@ jQuery ($)->
 
   nyoibo.after_upload   = ->
     $("#notice").text('アップロードが完了しました')
-    $("#list_ul").load("/")
+    $("#list_ul").load(path.root + "/")
     form.get(0).reset()
     form.show()
     progress_bar.hide()
