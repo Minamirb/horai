@@ -36,5 +36,7 @@ jQuery ($)->
 
     unless nyoibo.upload(form.find('input[type=file]').get(0).files[0], params)
       if nyoibo.errors.length > 0
-        alert nyoibo.errors.join(", ")
+        errors = $(nyoibo.errors).map (i, e) ->
+          I18n.t[e]
+        $("#errors").text(errors.toArray().join(", "))
     return false
