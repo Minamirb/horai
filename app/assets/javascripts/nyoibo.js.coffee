@@ -1,80 +1,58 @@
-`WEB_SOCKET_DEBUG = true;
- WEB_SOCKET_SWF_LOCATION = '/WebSocketMain.swf';`
+class Nyoibo
+  constructor: (@url, id) ->
+    if $("##{id}").length > 0
+      @progressbar = new html5jp.progress(id)
+      @progressbar.draw()
+      @prepare_upload = -> true
+      @before_upload  = -> true
+      @after_upload   = -> true
+      @upload_abort   = -> true
+  upload: (file, params={}) ->
+    @errors = []
+    return false unless @prepare_upload.apply(@)
 
-jQuery.fn.serializeObject = () ->
-  arrayData = this.serializeArray()
-  objectData = {}
-
-  $.each arrayData, () ->
-    if this.value?
-      value = this.value
-    else
-      value = ''
-
-    if objectData[this.name]?
-      unless objectData[this.name].push
-        objectData[this.name] = [objectData[this.name]]
-
-      objectData[this.name].push value
-    else
-      objectData[this.name] = value
-
-  return objectData
-
-jQuery ($)->
-  if $("#ws-progress").length > 0
-    progress = new html5jp.progress("ws-progress")
-    progress.draw()
-
-  form = $('#ws-form')
-  progress_bar = $("#ws-progress")
-
-  fire = (obj, name, data) ->
-    event = $.Event(name)
-    obj.trigger(event, data)
-    return event.result != false
-
-  form.bind 'ws:upload', (event) ->
-    file = form.find('input[type=file]').get(0).files[0]
     try
-      max_length = file.size
+      filesize = file.size
     catch e
-      alert nyoibo.file_not_found if nyoibo
-      return
-    if max_length == 0
-      alert nyoibo.file_not_found if nyoibo
-      return
+      @errors.push "file not found"
+    if filesize == 0
+      @errors.push "file size is zero"
+
+    return false if @errors.length > 0
+
     chunk = 102400
     start = 0
-    ws = new WebSocket("ws://localhost:3030/")
 
-    fire(form, 'ws:before_upload')
+    ws = new WebSocket(@url)
+    @before_upload.apply(@)
+    ws.progressbar = @progressbar
+    ws.after_upload = @after_upload
+    ws.upload_abort = @upload_abort
     ws.onclose = ->
-      progress.reset()
+      ws.progressbar.reset()
       ws = null
 
     ws.onmessage = (evt) ->
       switch evt.data
         when 'OK Ready'
-          params = {filename: file.name, comment: $('#post_comment').val(), size: max_length, session_string:  $('#session_string').val()}
-          for k, v of form.serializeObject()
-            params[k] = v
+          params['filename'] = file.name
+          params['size']     = filesize
           ws.send("JSON: " + JSON.stringify(params))
         when 'OK Bye'
-          progress.set_val(100)
-          fire(form, 'ws:after_upload')
+          ws.progressbar.set_val(100)
+          ws.after_upload.apply(@)
+          ws.close()
         when 'ABORT'
-          fire(form, 'ws:upload_abort')
+          ws.upload_abort.apply(@)
         when 'EMPTY'
-          progress.set_val(100)
-          fire(form, 'ws:after_upload')
           ws.send("QUIT")
+          ws.progressbar.set_val(100)
         when 'NEXT'
-          val = Math.floor(start / max_length * 100)
-          progress.set_val(val)
+          val = Math.floor(start / filesize * 100)
+          ws.progressbar.set_val(val)
           stop = start + chunk - 1
-          if stop >= max_length
-            stop = max_length
+          if stop >= filesize
+            stop = filesize
 
           blob = if typeof(file.mozSlice) == "function"
                    file.mozSlice(start, stop)
@@ -89,6 +67,4 @@ jQuery ($)->
             reader.readAsBinaryString(blob)
           , 300
 
-  $('#ws-form input[type=submit]').click ->
-    fire(form, 'ws:upload') if fire(form, 'ws:prepare_upload')
-    return false
+@Nyoibo = Nyoibo
