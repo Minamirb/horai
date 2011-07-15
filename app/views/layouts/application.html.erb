@@ -22,7 +22,7 @@
       <%= link_to(image_tag('sign-in-with-twitter-l.png'), signin_path)  %>
     <% end %>
   </div>
-  <% if true || user_signed_in? %>
+  <% if user_signed_in? %>
     <div id="upload_form">  
       <%= ws_form_for(@post) do |f| %>
         ファイル:&nbsp;<%= f.file_field :photo, :size => 40 %><br>
