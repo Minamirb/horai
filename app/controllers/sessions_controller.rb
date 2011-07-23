@@ -9,8 +9,12 @@ class SessionsController < ApplicationController
 
   def create
     auth = request.env["omniauth.auth"]
-    user = User.where(:provider => auth['provider'], 
-                      :uid => auth['uid']).first || User.create_with_omniauth(auth)
+    user = User.omniauth(auth)
+     {auth['user_info']   => ['name', 'nickname', 'image', 'description'],
+      auth['credentials'] => ['token', 'secret']}.each do |hash, keys|
+      p hash
+      keys.each{|k| user.write_attribute(k, hash[k])  }
+    end
     session[:user_id] = user.id
     redirect_to root_url, :notice => "Signed in!"
   end
